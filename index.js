@@ -1,18 +1,8 @@
-const Joi = require('joi');
-Joi.objectId = require('joi-objectid')(Joi);
-const mongoose = require('mongoose');
-//const genres = require('./routes/genres');
 const express = require('express');
 const app = express();
+require('./src/Boot')(app);
 
-mongoose.connect('mongodb://localhost/vidly')
-  .then(() => console.log('Connected to MongoDB...'))
-  .catch(() => console.error('Could not connect to MongoDB...'));
-
-app.use(express.json());
-
-//app.use('/api/genres', genres);
-
+const logger = require('./src/Boot/Logger');
 
 const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`Listening on port ${port}...`));
+app.listen(port, () => logger.info(`Listening on port ${port}...`));
