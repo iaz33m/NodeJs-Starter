@@ -36,9 +36,14 @@ const UserRules = {
 const userSchema = new mongoose.Schema(UserRules);
 
 userSchema.methods.getJWT = function(){
-    return jwt.sign(_.pick(this,[
+
+    const permissions = ['user-me']; // replace with users permissions from db
+
+    let user = _.pick(this,[
         '_id','firstName','lastName','email','number'
-    ]),process.env.JWT_SECRET); // from env
+    ]);
+
+    return jwt.sign({...user,permissions},process.env.JWT_SECRET);
 }
 
 const User = mongoose.model('User', userSchema);
