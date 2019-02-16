@@ -11,6 +11,8 @@ const {
     validate
 } = require('../Models/User');
 
+const UserResource = require('./../Resources/UserResource');
+
 
 const register = async (req, res, next) => {
 
@@ -58,9 +60,7 @@ const register = async (req, res, next) => {
 
     res.json({
         message: "User Registered Successfully.",
-        data: _.pick(user, [
-            '_id', 'firstName', 'lastName', 'email', 'number'
-        ]),
+        data: UserResource.Make(user),
         accessToken,
     });
 
@@ -110,9 +110,7 @@ const login = async (req, res, next) => {
 
     res.json({
         message: "Logged in Successfully",
-        data: _.pick(user, [
-            '_id', 'firstName', 'lastName', 'email', 'number'
-        ]),
+        data: UserResource.Make(user),
         accessToken,
     });
 

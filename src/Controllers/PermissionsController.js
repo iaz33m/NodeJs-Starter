@@ -9,7 +9,6 @@ const index = async (req, res) => {
 
     const permissions = await Permission
         .find()
-        .select('name description')
         .exec();
 
     res.json({
@@ -57,8 +56,48 @@ const create = async (req, res) => {
     });
 };
 
+const update = async (req,res) => {
+
+
+    const {
+        error
+    } = validate(req.body);
+
+    if (error) {
+        return res.status(400).json({
+            message: error.details[0].message
+        });
+    }
+
+    const {
+        name,
+        description
+    } = req.body;
+
+
+    const pr = await Permission.findByIdAndUpdate(req.params.id, {$set: {
+        name,description
+    }});
+
+
+    res.json({
+        message:"Permission updated successfully",
+        data: PermissionResource.Make(pr),
+    });
+};
+
+const destroy = async (req, res) => {
+
+    await Permission.findByIdAndRemove(req.params.id);
+    
+    res.json({
+        message:"Permission deleted successfully"
+    });
+};
 
 module.exports = {
     index,
-    create
+    create,
+    update,
+    destroy,
 };

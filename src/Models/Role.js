@@ -12,6 +12,7 @@ const Rules = {
     },
     description: {
         ...StringRules,
+        minlength: null,
     },
 };
 
@@ -27,6 +28,7 @@ function validate(model) {
 
     return Joi.validate(model, {
         name: Joi.string().min(name.minlength).max(name.maxlength).required(),
+        description: Joi.empty(),
     });
 }
 
