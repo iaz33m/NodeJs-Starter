@@ -1,13 +1,22 @@
 const _ = require('lodash');
 const Joi = require('joi');
-const { genSalt, hash, compare } = require('bcrypt');
+const {
+    genSalt,
+    hash,
+    compare
+} = require('bcrypt');
 
-const { User, validate } = require('../Models/User');
+const {
+    User,
+    validate
+} = require('../Models/User');
 
 
 const register = async (req, res, next) => {
 
-    const { error } = validate(req.body);
+    const {
+        error
+    } = validate(req.body);
 
     if (error) {
         return res.status(400).json({
@@ -15,7 +24,13 @@ const register = async (req, res, next) => {
         });
     };
 
-    const { firstName, lastName, password, email, number } = req.body;
+    const {
+        firstName,
+        lastName,
+        password,
+        email,
+        number
+    } = req.body;
 
     let user = await User.findOne({
         email
@@ -30,7 +45,11 @@ const register = async (req, res, next) => {
     const passHas = await hash(password, await genSalt(10));
 
     user = new User({
-        firstName, lastName, email, number, password: passHas
+        firstName,
+        lastName,
+        email,
+        number,
+        password: passHas
     });
 
     await user.save();
@@ -62,7 +81,10 @@ const login = async (req, res, next) => {
         });
     }
 
-    const { email, password } = req.body;
+    const {
+        email,
+        password
+    } = req.body;
 
     let user = await User.findOne({
         email
@@ -97,5 +119,6 @@ const login = async (req, res, next) => {
 };
 
 module.exports = {
-    register, login
+    register,
+    login
 };

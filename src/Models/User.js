@@ -4,7 +4,9 @@ const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const _ = require('lodash');
 
-const { StringRules } = require('./CommonRules');
+const {
+    StringRules
+} = require('./CommonRules');
 
 const UserRules = {
 
@@ -20,41 +22,49 @@ const UserRules = {
     email: {
         ...StringRules,
         required: "Email is Required",
-        unique:true,
+        unique: true,
     },
     password: {
         ...StringRules,
         required: "Password is Required",
-        maxlength:1024,
+        maxlength: 1024,
     },
     number: {
         ...StringRules,
-        unique:true,
+        unique: true,
     }
 };
 
 const userSchema = new mongoose.Schema(UserRules);
 
-userSchema.methods.getJWT = function(){
+userSchema.methods.getJWT = function () {
 
     const permissions = ['user-me']; // replace with users permissions from db
 
-    let user = _.pick(this,[
-        '_id','firstName','lastName','email','number'
+    let user = _.pick(this, [
+        '_id', 'firstName', 'lastName', 'email', 'number'
     ]);
 
-    return jwt.sign({...user,permissions},process.env.JWT_SECRET);
+    return jwt.sign({
+        ...user,
+        permissions
+    }, process.env.JWT_SECRET);
 }
 
 const User = mongoose.model('User', userSchema);
 
 function validate(user) {
-    const { firstName, lastName, email, number } = UserRules;
+    const {
+        firstName,
+        lastName,
+        email,
+        number
+    } = UserRules;
     const schema = {
         firstName: Joi.string().min(firstName.minlength).max(firstName.maxlength).required(),
         lastName: Joi.string().min(lastName.minlength).max(lastName.maxlength).required(),
         email: Joi.string().min(email.minlength).max(email.maxlength).required().email(),
-        password:Joi.string().min(6).required(),
+        password: Joi.string().min(6).required(),
         number: Joi.string().min(number.minlength).max(number.maxlength),
     };
 
@@ -62,5 +72,6 @@ function validate(user) {
 }
 
 module.exports = {
-    User,validate
+    User,
+    validate
 }
