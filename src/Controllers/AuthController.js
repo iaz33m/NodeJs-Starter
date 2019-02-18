@@ -69,11 +69,11 @@ const register = async (req, res, next) => {
 const login = async (req, res, next) => {
 
     const schema = {
-        email: Joi.required().email(),
-        password: Joi.required(),
+        email: Joi.string().required().email(),
+        password: Joi.string().required(),
     };
 
-    const error = Joi.validate(req.body, schema);
+    const { error } = Joi.validate(req.body, schema);
 
     if (error) {
         return res.status(400).json({

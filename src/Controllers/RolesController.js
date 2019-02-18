@@ -22,7 +22,8 @@ const create = async (req, res) => {
 
     if (error) {
         return res.status(400).json({
-            message: error.details[0].message
+            message: error.details[0].message,
+            errors: error.details,
         });
     }
 
@@ -54,7 +55,7 @@ const create = async (req, res) => {
     });
 };
 
-const update = async (req,res) => {
+const update = async (req, res) => {
 
 
     const {
@@ -63,7 +64,8 @@ const update = async (req,res) => {
 
     if (error) {
         return res.status(400).json({
-            message: error.details[0].message
+            message: error.details[0].message,
+            errors: error.details,
         });
     }
 
@@ -73,12 +75,14 @@ const update = async (req,res) => {
     } = req.body;
 
 
-    const rl = await Role.findByIdAndUpdate(req.params.id, {$set: {
-        name,description
-    }});
+    const rl = await Role.findByIdAndUpdate(req.params.id, {
+        $set: {
+            name, description
+        }
+    }, { new: true });
 
     res.json({
-        message:"Role updated successfully",
+        message: "Role updated successfully",
         data: RoleResource.Make(rl),
     });
 };
@@ -86,9 +90,9 @@ const update = async (req,res) => {
 const destroy = async (req, res) => {
 
     await Role.findByIdAndRemove(req.params.id);
-    
+
     res.json({
-        message:"Role deleted successfully"
+        message: "Role deleted successfully"
     });
 };
 

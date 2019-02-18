@@ -4,8 +4,8 @@ class RoleResource extends Resource {
 
     toJson() {
 
-        const {_id,name,description} = this.model;
-        
+        const { _id, name, description } = this.model;
+
         return {
             _id,
             name,
@@ -18,7 +18,7 @@ class RoleResource extends Resource {
     }
 
     static Make(model) {
-        return new RoleRequest(model).toJson();
+        return new RoleResource(model).toJson();
     }
 }
 

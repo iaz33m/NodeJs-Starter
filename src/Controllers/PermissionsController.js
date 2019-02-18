@@ -7,9 +7,7 @@ const PermissionResource = require('./../Resources/PermissionResource');
 
 const index = async (req, res) => {
 
-    const permissions = await Permission
-        .find()
-        .exec();
+    const permissions = await Permission.find().exec();
 
     res.json({
         data: PermissionResource.Collection(permissions)
@@ -24,7 +22,8 @@ const create = async (req, res) => {
 
     if (error) {
         return res.status(400).json({
-            message: error.details[0].message
+            message: error.details[0].message,
+            errors: error.details,
         });
     }
 
@@ -56,7 +55,7 @@ const create = async (req, res) => {
     });
 };
 
-const update = async (req,res) => {
+const update = async (req, res) => {
 
 
     const {
@@ -65,7 +64,8 @@ const update = async (req,res) => {
 
     if (error) {
         return res.status(400).json({
-            message: error.details[0].message
+            message: error.details[0].message,
+            errors: error.details,
         });
     }
 
@@ -75,13 +75,15 @@ const update = async (req,res) => {
     } = req.body;
 
 
-    const pr = await Permission.findByIdAndUpdate(req.params.id, {$set: {
-        name,description
-    }});
+    const pr = await Permission.findByIdAndUpdate(req.params.id, {
+        $set: {
+            name, description
+        }
+    }, { new: true });
 
 
     res.json({
-        message:"Permission updated successfully",
+        message: "Permission updated successfully",
         data: PermissionResource.Make(pr),
     });
 };
@@ -89,9 +91,9 @@ const update = async (req,res) => {
 const destroy = async (req, res) => {
 
     await Permission.findByIdAndRemove(req.params.id);
-    
+
     res.json({
-        message:"Permission deleted successfully"
+        message: "Permission deleted successfully"
     });
 };
 

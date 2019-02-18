@@ -21,7 +21,7 @@ class PermissionResource extends Resource {
     }
 
     static Make(model) {
-        return new PermissionRequest(model).toJson();
+        return new PermissionResource(model).toJson();
     }
 }
 
