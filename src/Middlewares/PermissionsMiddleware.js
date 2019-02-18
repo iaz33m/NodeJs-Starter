@@ -1,10 +1,13 @@
 const _ = require('lodash');
 
-module.exports = (req,res,next,pr)=>{
+const { t: _t, messages: _m } = require('./../Messages/translator');
 
-    if(!_.includes(req.user.permissions, pr)){
+module.exports = (req, res, next, pr) => {
+
+    if (!_.includes(req.user.permissions, pr)) {
+        const m = _t(_m.permissionRequired);
         return res.status(403).json({
-            message:`${pr} permission is required to perform this action`
+            message: `${pr} ${m}`
         });
     }
 

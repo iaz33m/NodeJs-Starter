@@ -28,6 +28,7 @@
     "joi": "^14.3.1",
     "joi-objectid": "^2.0.0",
     "jsonwebtoken": "^8.4.0",
+    "localizify": "^1.2.4",
     "lodash": "^4.17.11",
     "mongoose": "^5.4.11",
     "mongoose-data-seed": "^1.0.7",

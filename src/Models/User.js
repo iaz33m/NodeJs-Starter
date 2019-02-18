@@ -58,7 +58,7 @@ userSchema.methods.getJWT = function () {
     ]);
 
     return jwt.sign({
-        // ...user,
+        ...user,
         permissions
     }, process.env.JWT_SECRET);
 }

@@ -11,6 +11,8 @@ const {
     validate
 } = require('../Models/User');
 
+const { t: _t, messages: _m } = require('./../Messages/translator');
+
 const UserResource = require('./../Resources/UserResource');
 
 
@@ -40,7 +42,9 @@ const register = async (req, res, next) => {
 
     if (user) {
         return res.status(400).json({
-            message: 'User already exists with given email'
+            message: _t(_m.modelAlreadyExists,
+                { model: _t(_m.user) }
+            ),
         });
     }
 
@@ -59,7 +63,9 @@ const register = async (req, res, next) => {
     const accessToken = user.getJWT();
 
     res.json({
-        message: "User Registered Successfully.",
+        message: _t(_m.modelCreatedSuccessfully,
+            { model: _t(_m.user) }
+        ),
         data: UserResource.Make(user),
         accessToken,
     });
@@ -90,7 +96,7 @@ const login = async (req, res, next) => {
         email
     });
 
-    const errorMessage = "Invalid Email or Password";
+    const errorMessage = _t(_m.invalidEmailOrPassword);
 
     if (!user) {
         return res.status(400).json({
@@ -109,7 +115,7 @@ const login = async (req, res, next) => {
     const accessToken = user.getJWT();
 
     res.json({
-        message: "Logged in Successfully",
+        message: _t(_m.loggedInSuccessfully),
         data: UserResource.Make(user),
         accessToken,
     });

@@ -1,18 +1,19 @@
 const mongoose = require('mongoose');
 const Joi = require('Joi');
-const {
-    StringRules
-} = require('./CommonRules');
 
 const Rules = {
     name: {
-        ...StringRules,
-        required: "Name is Required",
+        type: String,
+        minlength: 2,
+        maxlength: 255,
+        trim: true,
+        required: true,
         unique: true,
     },
     description: {
-        ...StringRules,
-        minlength: null,
+        type: String,
+        minlength: 2,
+        trim: true,
     },
 };
 

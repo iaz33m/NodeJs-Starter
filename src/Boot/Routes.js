@@ -1,8 +1,10 @@
 const express = require('express');
 
 const {
-    errorMiddleware
+    errorMiddleware,
+    setLocal
 } = require('./../Middlewares');
+
 const {
     authRouter,
     userRouter,
@@ -13,6 +15,7 @@ const {
 module.exports = (app) => {
 
     app.use(express.json());
+    app.use(setLocal);
 
     app.use('/api/v1/auth', authRouter);
     app.use('/api/v1/users', userRouter);

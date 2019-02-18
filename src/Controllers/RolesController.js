@@ -3,6 +3,8 @@ const {
     validate
 } = require('./../Models/Role');
 
+const { t: _t, messages: _m } = require('./../Messages/translator');
+
 const RoleResource = require('./../Resources/RoleResource');
 
 const index = async (req, res) => {
@@ -38,7 +40,9 @@ const create = async (req, res) => {
 
     if (rl) {
         return res.status(400).json({
-            message: 'Role already exists with given name'
+            message: _t(_m.modelAlreadyExists,
+                { model: _t(_m.role) }
+            )
         });
     }
 
@@ -50,7 +54,9 @@ const create = async (req, res) => {
     await rl.save();
 
     res.json({
-        message: "Role created successfully",
+        message: _t(_m.modelCreatedSuccessfully,
+            { model: _t(_m.role) }
+        ),
         data: RoleResource.Make(rl),
     });
 };
@@ -82,7 +88,9 @@ const update = async (req, res) => {
     }, { new: true });
 
     res.json({
-        message: "Role updated successfully",
+        message: _t(_m.modelUpdatedSuccessfully,
+            { model: _t(_m.role) }
+        ),
         data: RoleResource.Make(rl),
     });
 };
@@ -92,7 +100,9 @@ const destroy = async (req, res) => {
     await Role.findByIdAndRemove(req.params.id);
 
     res.json({
-        message: "Role deleted successfully"
+        message: _t(_m.modelDeletedSuccessfully,
+            { model: _t(_m.role) }
+        )
     });
 };
 
