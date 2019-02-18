@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --watchAll --verbose",
+    "seed:drop": "./node_modules/.bin/md-seed run --dropdb",
+    "seed": "./node_modules/.bin/md-seed run",
     "start": "nodemon index.js"
   },
   "engines": {
@@ -20,6 +22,7 @@
     "express": "^4.16.4",
     "express-async-errors": "^3.1.1",
     "express-jwt": "^5.3.1",
+    "faker": "^4.1.0",
     "fawn": "^2.1.5",
     "helmet": "^3.15.0",
     "joi": "^14.3.1",
@@ -27,6 +30,7 @@
     "jsonwebtoken": "^8.4.0",
     "lodash": "^4.17.11",
     "mongoose": "^5.4.11",
+    "mongoose-data-seed": "^1.0.7",
     "winston": "^3.2.1",
     "winston-mongodb": "^4.0.3"
   }

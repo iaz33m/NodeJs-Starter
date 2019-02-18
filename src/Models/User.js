@@ -4,33 +4,45 @@ const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const _ = require('lodash');
 
-const {
-    StringRules
-} = require('./CommonRules');
 
 const UserRules = {
 
     firstName: {
-        ...StringRules,
-        required: "First Name is Required",
+        type: String,
+        minlength: 2,
+        maxlength: 255,
+        trim: true,
+        required: true,
     },
 
     lastName: {
-        ...StringRules,
-        required: "Last Name is Required",
+        type: String,
+        minlength: 2,
+        maxlength: 255,
+        trim: true,
+        required: true,
     },
     email: {
-        ...StringRules,
-        required: "Email is Required",
+        type: String,
+        minlength: 2,
+        maxlength: 255,
+        trim: true,
+        required: true,
         unique: true,
     },
     password: {
-        ...StringRules,
-        required: "Password is Required",
+        type: String,
+        minlength: 2,
+        maxlength: 255,
+        trim: true,
+        required: true,
         maxlength: 1024,
     },
     number: {
-        ...StringRules,
+        type: String,
+        minlength: 2,
+        maxlength: 255,
+        trim: true,
         unique: true,
     }
 };
@@ -46,7 +58,7 @@ userSchema.methods.getJWT = function () {
     ]);
 
     return jwt.sign({
-        ...user,
+        // ...user,
         permissions
     }, process.env.JWT_SECRET);
 }
