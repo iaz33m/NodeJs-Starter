@@ -9,6 +9,7 @@ class UserResource extends Resource {
             lastName: this.model.lastName,
             email: this.model.email,
             number: this.model.number,
+            roles: this.model.roles,
         };
     }
 

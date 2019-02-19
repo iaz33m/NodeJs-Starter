@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const {
-    me
+    me, updateRoles
 } = require('../Controllers/UsersController');
 const {
     auth,
@@ -9,8 +9,12 @@ const {
 
 router.get('/me', [
     auth,
-    (req, res, next) => permission(req, res, next, "user-me")
+    (re, rs, n) => permission(re, rs, n, "user-me")
 ], me);
+
+router.post('/:id/roles', [
+    auth,
+], updateRoles);
 
 
 module.exports = router;
