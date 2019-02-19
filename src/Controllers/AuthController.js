@@ -59,7 +59,7 @@ const register = async (req, res, next) => {
         number,
         password: passHas,
         roles: [
-            DEFAULT_USER_ROLE
+            DEFAULT_USER_ROLE || "User"
         ],
     });
 
