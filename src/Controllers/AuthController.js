@@ -50,12 +50,17 @@ const register = async (req, res, next) => {
 
     const passHas = await hash(password, await genSalt(10));
 
+    const { DEFAULT_USER_ROLE } = process.env;
+
     user = new User({
         firstName,
         lastName,
         email,
         number,
-        password: passHas
+        password: passHas,
+        roles: [
+            DEFAULT_USER_ROLE
+        ],
     });
 
     await user.save();

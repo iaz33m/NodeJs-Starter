@@ -1,3 +1,5 @@
 MONGO_URI=mongodb://localhost/baseProject
 PORT=4000
+SUPER_USER_ROLE=Admin
+DEFAULT_USER_ROLE=User
 JWT_SECRET=pUYvesnP03pxnadp1xghFzaxVNNecL2D1jMVTgSFCBuacCrUPDlrPkGA8JfRn5ldNzGUoted2z2dMiOAdYfB8Lmd4ZPeoXdAuyqd

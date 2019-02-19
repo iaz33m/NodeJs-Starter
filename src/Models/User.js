@@ -44,7 +44,8 @@ const UserRules = {
         maxlength: 255,
         trim: true,
         unique: true,
-    }
+    },
+    roles: [String]
 };
 
 const userSchema = new mongoose.Schema(UserRules);

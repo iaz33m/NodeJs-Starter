@@ -15,6 +15,7 @@ const Rules = {
         minlength: 2,
         trim: true,
     },
+    permissions: [String]
 };
 
 const roleSchema = new mongoose.Schema(Rules);
@@ -30,6 +31,7 @@ function validate(model) {
     return Joi.validate(model, {
         name: Joi.string().min(name.minlength).max(name.maxlength).required(),
         description: Joi.empty(),
+        permissions: Joi.optional()
     });
 }
 

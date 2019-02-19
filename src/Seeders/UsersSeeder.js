@@ -13,7 +13,7 @@ class UsersSeeder extends Seeder {
                 firstName: faker.name.firstName(),
                 lastName: faker.name.lastName(),
                 email: (i == 0) ? 'email@azeem.live' : faker.internet.exampleEmail(),
-                password: "$2b$10$unshjGvkEkIwSj7AS9fn1.24hXkFctIJLaeAyzp1ChkwgCYIdCRji" // 123456789
+                password: "$2b$10$707zl04F4NMfvh883TFOqeCQ0oCyvj.xIqZ279xft2JiYu8iCZOI." // 123456789
             });
         }
 

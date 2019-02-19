@@ -31,7 +31,8 @@ const create = async (req, res) => {
 
     const {
         name,
-        description
+        description,
+        permissions
     } = req.body;
 
     let rl = await Role.findOne({
@@ -48,7 +49,8 @@ const create = async (req, res) => {
 
     rl = new Role({
         name,
-        description
+        description,
+        permissions
     });
 
     await rl.save();
@@ -77,13 +79,14 @@ const update = async (req, res) => {
 
     const {
         name,
-        description
+        description,
+        permissions
     } = req.body;
 
 
     const rl = await Role.findByIdAndUpdate(req.params.id, {
         $set: {
-            name, description
+            name, description, permissions
         }
     }, { new: true });
 

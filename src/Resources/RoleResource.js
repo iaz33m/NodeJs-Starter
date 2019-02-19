@@ -4,12 +4,13 @@ class RoleResource extends Resource {
 
     toJson() {
 
-        const { _id, name, description } = this.model;
+        const { _id, name, description, permissions } = this.model;
 
         return {
             _id,
             name,
-            description: description || ""
+            description: description || "",
+            permissions
         };
     }
 
