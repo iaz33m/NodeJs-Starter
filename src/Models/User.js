@@ -58,10 +58,12 @@ userSchema.methods.getJWT = function () {
         '_id', 'firstName', 'lastName', 'email', 'number'
     ]);
 
+    const { JWT_SECRET } = process.env;
+
     return jwt.sign({
         //...user,
         permissions
-    }, process.env.JWT_SECRET);
+    }, JWT_SECRET || 'NO8IEpxaEA83Q7AO6L5vEQHwmoNJFwXP');
 }
 
 const User = mongoose.model('User', userSchema);
