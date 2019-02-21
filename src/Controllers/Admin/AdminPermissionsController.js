@@ -1,18 +1,18 @@
 const {
-    Role,
+    Permission,
     validate
-} = require('./../Models/Role');
+} = require('../../Models/Permission');
 
-const { t: _t, messages: _m } = require('./../Messages/translator');
+const { t: _t, messages: _m } = require('../../Messages/translator');
 
-const RoleResource = require('./../Resources/RoleResource');
+const PermissionResource = require('../../Resources/PermissionResource');
 
 const index = async (req, res) => {
 
-    const roles = await Role.find().exec();
+    const permissions = await Permission.find().exec();
 
     res.json({
-        data: RoleResource.Collection(roles)
+        data: PermissionResource.Collection(permissions)
     });
 };
 
@@ -31,35 +31,33 @@ const create = async (req, res) => {
 
     const {
         name,
-        description,
-        permissions
+        description
     } = req.body;
 
-    let rl = await Role.findOne({
+    let pr = await Permission.findOne({
         name
     });
 
-    if (rl) {
+    if (pr) {
         return res.status(400).json({
             message: _t(_m.modelAlreadyExists,
-                { model: _t(_m.role) }
-            )
+                { model: _t(_m.permission) }
+            ),
         });
     }
 
-    rl = new Role({
+    pr = new Permission({
         name,
-        description,
-        permissions
+        description
     });
 
-    await rl.save();
+    await pr.save();
 
     res.json({
         message: _t(_m.modelCreatedSuccessfully,
-            { model: _t(_m.role) }
+            { model: _t(_m.permission) }
         ),
-        data: RoleResource.Make(rl),
+        data: PermissionResource.Make(pr),
     });
 };
 
@@ -79,33 +77,33 @@ const update = async (req, res) => {
 
     const {
         name,
-        description,
-        permissions
+        description
     } = req.body;
 
 
-    const rl = await Role.findByIdAndUpdate(req.params.id, {
+    const pr = await Permission.findByIdAndUpdate(req.params.id, {
         $set: {
-            name, description, permissions
+            name, description
         }
     }, { new: true });
 
+
     res.json({
         message: _t(_m.modelUpdatedSuccessfully,
-            { model: _t(_m.role) }
+            { model: _t(_m.permission) }
         ),
-        data: RoleResource.Make(rl),
+        data: PermissionResource.Make(pr),
     });
 };
 
 const destroy = async (req, res) => {
 
-    await Role.findByIdAndRemove(req.params.id);
+    await Permission.findByIdAndRemove(req.params.id);
 
     res.json({
         message: _t(_m.modelDeletedSuccessfully,
-            { model: _t(_m.role) }
-        )
+            { model: _t(_m.permission) }
+        ),
     });
 };
 

@@ -8,8 +8,9 @@ const {
 const {
     authRouter,
     userRouter,
-    roleRouter,
-    permissionRouter
+    adminUserRouter,
+    adminRoleRouter,
+    adminPermissionRouter
 } = require('./../Routes');
 
 module.exports = (app) => {
@@ -19,8 +20,9 @@ module.exports = (app) => {
 
     app.use('/api/v1/auth', authRouter);
     app.use('/api/v1/users', userRouter);
-    app.use('/api/v1/roles', roleRouter);
-    app.use('/api/v1/permissions', permissionRouter);
+    app.use('/api/v1/admin/users', adminUserRouter);
+    app.use('/api/v1/admin/roles', adminRoleRouter);
+    app.use('/api/v1/admin/permissions', adminPermissionRouter);
 
     app.use(errorMiddleware);
 };

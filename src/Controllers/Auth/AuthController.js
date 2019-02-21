@@ -9,11 +9,11 @@ const {
 const {
     User,
     validate
-} = require('../Models/User');
+} = require('../../Models/User');
 
-const { t: _t, messages: _m } = require('./../Messages/translator');
+const { t: _t, messages: _m } = require('../../Messages/translator');
 
-const UserResource = require('./../Resources/UserResource');
+const UserResource = require('../../Resources/UserResource');
 
 
 const register = async (req, res, next) => {
