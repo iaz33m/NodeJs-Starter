@@ -65,7 +65,7 @@ const register = async (req, res, next) => {
 
     await user.save();
 
-    const accessToken = user.getJWT();
+    const accessToken = await user.getJWT();
 
     res.json({
         message: _t(_m.modelCreatedSuccessfully,
@@ -117,7 +117,7 @@ const login = async (req, res, next) => {
         });
     }
 
-    const accessToken = user.getJWT();
+    const accessToken = await user.getJWT();
 
     res.json({
         message: _t(_m.loggedInSuccessfully),

@@ -1,6 +1,8 @@
 const Joi = require('joi');
 const mongoose = require('mongoose');
 
+const { Role } = require('./Role');
+
 const jwt = require('jsonwebtoken');
 const _ = require('lodash');
 
@@ -50,9 +52,20 @@ const UserRules = {
 
 const userSchema = new mongoose.Schema(UserRules);
 
-userSchema.methods.getJWT = function () {
+userSchema.methods.getPermissions = async function () {
 
-    const permissions = ['user-me']; // replace with users permissions from db
+    let prs = [];
+    const roles = await Role.where('name').in(this.roles).exec();
+
+    roles.forEach(r => {
+        prs = _.merge(prs, r.permissions);
+    });
+
+    return prs;
+}
+userSchema.methods.getJWT = async function () {
+
+    const permissions = await this.getPermissions();
 
     let user = _.pick(this, [
         '_id', 'firstName', 'lastName', 'email', 'number'
@@ -61,7 +74,7 @@ userSchema.methods.getJWT = function () {
     const { JWT_SECRET } = process.env;
 
     return jwt.sign({
-        //...user,
+        ...user,
         permissions
     }, JWT_SECRET || 'NO8IEpxaEA83Q7AO6L5vEQHwmoNJFwXP');
 }

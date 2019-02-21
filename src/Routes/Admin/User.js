@@ -9,6 +9,7 @@ const {
 
 router.post('/:id/roles', [
     auth,
+    (re, rs, n) => permission(re, rs, n, 'user-role-update')
 ], updateRoles);
 
 
